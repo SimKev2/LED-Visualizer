@@ -28,8 +28,8 @@ int main (int argc, char*argv[]) {
             for (m = 0 ; m < channels ; m++) {
                 float curr = buf[k*channels+m];
                 printf (" % 12.10f", curr) ;
-                if(curr>maxVal) maxVal = curr;
-                if (curr<minVal) minVal = curr;
+//                if(curr>maxVal) maxVal = curr;
+//                if (curr<minVal) minVal = curr;
                 }
             printf ("\n") ;
             }
