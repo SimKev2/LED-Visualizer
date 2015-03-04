@@ -30,17 +30,16 @@ void importFreq(double raw[], double refine[]){//FIX_ME
     int i, j;
     double rawImport=0.0;
     int songLength;
-    songLength = 20 * SAMPLE_RATE;
-    //scanf("%d\n", &songLength);
+    //songLength = 20 * SAMPLE_RATE;//test
+    scanf("%d\n", &songLength);//real
 
     songLength = songLength / SAMPLE_RATE * 10;
 
     for(i=0;i< songLength;i++){
         for(j=0;j<SAMPLE_RATE/10;j++){//importing sound
-            raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//temp
+            //raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//test
 
-            //scanf("%lf\n", &raw[j]);//final
-            //printf("%lf # ",raw[j]);//test
+            scanf("%lf\n", &raw[j]);//real import
 
             rawImport += fabs(raw[j]);
         }
