@@ -15,7 +15,7 @@ int main (int argc, char*argv[]) {
     
     infilename = argv [1];
     infile = sf_open (infilename, SFM_READ, &sfinfo);
-    printf("%lld \n",sfinfo.frames);
+    printf("%lld \n",sfinfo.frames); //prints number of samples (frames)
     int channels = sfinfo.channels;
     
     
@@ -27,11 +27,11 @@ int main (int argc, char*argv[]) {
         for (k = 0 ; k < readcount ; k++) {
             for (m = 0 ; m < channels ; m++) {
                 float curr = buf[k*channels+m];
-                printf (" % 12.10f", curr) ;
-                if(curr>maxVal) maxVal = curr;
-                if (curr<minVal) minVal = curr;
+                printf (" % 12.10f", curr); //prints each value
+//                if(curr>maxVal) maxVal = curr;
+//                if (curr<minVal) minVal = curr;
                 }
-            printf ("\n") ;
+            printf ("\n");
             }
     }
 //    printf("\nMax:\n%12.10f\n",maxVal);
