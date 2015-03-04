@@ -31,15 +31,21 @@ void importFreq(double raw[], double refine[]){//FIX_ME
 
     for(i=0;i< SONG_LENGTH;i++){
         for(j=0;j<SAMPLE_RATE/10;j++){
-            raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//temp
-            //scanf("%lf\n", raw[j]);//final
+            //raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//temp
+
+            scanf("%lf\n", raw[j]);//final
             //printf("%lf # ",raw[j]);//test
+
             raw[j]++;
             rawImport += raw[j];
         }
+
         //printf("\n%lf\n",rawImport);//test
+
         refine[i] = ((rawImport/(SAMPLE_RATE/10.0)))*10;
+
         //printf("%lf\n",refine[i]);//test
+
         rawImport =0;
     }
     printf("Frequency imported\n");//TEMP
