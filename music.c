@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
+#include <math.h>
 
 #define SONG_LENGTH 200 //read from file (10*seconds)
 #define SAMPLE_RATE 44100.0 //read from file
@@ -29,31 +30,26 @@ void importFreq(double raw[], double refine[]){//FIX_ME
     int i, j;
     double rawImport=0.0;
     int songLength;
-
-    scanf("%d\n", &songLength);
+    songLength = 20 * SAMPLE_RATE;
+    //scanf("%d\n", &songLength);
 
     songLength = songLength / SAMPLE_RATE * 10;
 
     for(i=0;i< songLength;i++){
-        for(j=0;j<SAMPLE_RATE/10;j++){
-            //raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//temp
+        for(j=0;j<SAMPLE_RATE/10;j++){//importing sound
+            raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//temp
 
-            scanf("%lf\n", &raw[j]);//final
+            //scanf("%lf\n", &raw[j]);//final
             //printf("%lf # ",raw[j]);//test
 
-            raw[j]++;
-            rawImport += raw[j];
+            rawImport += fabs(raw[j]);
         }
 
-        //printf("\n%lf\n",rawImport);//test
-
-        refine[i] = ((rawImport/(SAMPLE_RATE/10.0)))*20.0;
-
-        //printf("%lf\n",refine[i]);//test
+        refine[i] = ((rawImport / (SAMPLE_RATE/10.0)) * 10);
 
         rawImport =0;
     }
-    printf("Frequency imported\n");//TEMP
+    printf("Frequency imported\n");//test
 
 }
 
@@ -70,6 +66,6 @@ void playDisplay(double refine[]){
             t = clock()/((double)CLOCKS_PER_SEC);
         }
     }
-    printf("end");
+    printf("end");//test
 }
 //44100 samples per sec
