@@ -3,16 +3,30 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define SONG_LENGTH 200 //read from file (10*seconds)
-#define SAMPLE_RATE 44100.0 //read from file
+#define SAMPLE_RATE 44100.0 //read from file samples per second
+#define DISPLAY_RATE 10.0
+#define DISPLAY_MOD 30.0
 
 void importFreq(double raw[], double refine[]);//FINISH_ME
 void playDisplay(double refine[]);
+double minFreq(double array[]);
+double maxFreq(double array[]);
+double avgFreq(double array[]);
 
 int main(void)
 {
-    double refineFreq [SONG_LENGTH];
-    double rawFreq [(int)SAMPLE_RATE/10];
+    int songLength;//10*seconds
+
+    //songLength = 20 * SAMPLE_RATE;//test
+    scanf("%d\n", &songLength);//real
+
+    songLength = songLength / SAMPLE_RATE * DISPLAY_RATE;
+
+    double rawFreq[(int)SAMPLE_RATE/DISPLAY_RATE];
+
+    double refineFreq[songLength];
+
+    double testRefineFreq[songLength];
 
     importFreq(rawFreq, refineFreq);
 
@@ -22,21 +36,17 @@ int main(void)
     return 0;
 }
 
-void importFreq(double raw[], double refine[]){//FIX_ME
-    //magic importation
+void importFreq(double raw[], double refine[]){//FINISH_ME
 
     srand(time(NULL));
 
     int i, j;
     double rawImport=0.0;
-    int songLength;
-    //songLength = 20 * SAMPLE_RATE;//test
-    scanf("%d\n", &songLength);//real
 
-    songLength = songLength / SAMPLE_RATE * 10;
+    double max, min, average;
 
     for(i=0;i< songLength;i++){
-        for(j=0;j<SAMPLE_RATE/10;j++){//importing sound
+        for(j=0;j<SAMPLE_RATE/DISPLAY_RATE;j++){//importing sound
             //raw[j] = 2.0*(double)rand()/(double)RAND_MAX - 1;//test
 
             scanf("%lf\n", &raw[j]);//real import
@@ -44,9 +54,11 @@ void importFreq(double raw[], double refine[]){//FIX_ME
             rawImport += fabs(raw[j]);
         }
 
-        refine[i] = ((rawImport / (SAMPLE_RATE/10.0)) * 10);
+        refine[i] = ((rawImport / (SAMPLE_RATE/DISPLAY_RATE)) * DISPLAY_MOD);//change to be percent based off of the average value of the song.
 
-        rawImport =0;
+        //find min, max, and average.
+
+        rawImport =0.0;
     }
     printf("Frequency imported\n");//test
 
@@ -67,4 +79,31 @@ void playDisplay(double refine[]){
     }
     printf("end");//test
 }
-//44100 samples per sec
+
+double minFreq(double array[]){
+    double min;
+    int i;
+    for(i=0;array[i]!= '\0';i++){
+        if(min > array[i]) min = array[i];
+    }
+    return min;
+}
+
+double maxFreq(double array[]){
+    double max;
+    int i;
+    for(i=0;array[i]!= '\0';i++){
+        if(max < array[i]) max = array[i];
+    }
+    return max;
+}
+
+double avgFreq(double array[]){
+    double avg;
+    int i;
+    for(i=0;array[i]!= '\0';i++){
+        avg+= array[i];
+    }
+    avg = avg/i;
+    return avg;
+}
