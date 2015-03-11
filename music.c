@@ -7,7 +7,7 @@
 #define DISPLAY_RATE 10.0
 #define DISPLAY_MOD 30.0
 
-void importFreq(double raw[], double refine[]);//FINISH_ME
+void importFreq(double raw[], double refine[], int songLength);//FINISH_ME
 void playDisplay(double refine[]);
 double minFreq(double array[]);
 double maxFreq(double array[]);
@@ -22,13 +22,13 @@ int main(void)
 
     songLength = songLength / SAMPLE_RATE * DISPLAY_RATE;
 
-    double rawFreq[(int)SAMPLE_RATE/DISPLAY_RATE];
+    double rawFreq[(int)(SAMPLE_RATE/DISPLAY_RATE)];
 
     double refineFreq[songLength];
 
     double testRefineFreq[songLength];
 
-    importFreq(rawFreq, refineFreq);
+    importFreq(rawFreq, refineFreq, songLength);
 
     playDisplay(refineFreq);
 
@@ -36,7 +36,7 @@ int main(void)
     return 0;
 }
 
-void importFreq(double raw[], double refine[]){//FINISH_ME
+void importFreq(double raw[], double refine[], int songLength){//FINISH_ME
 
     srand(time(NULL));
 
