@@ -8,15 +8,24 @@
 #define BLOCK_SIZE 512
 
 int main (int argc, char*argv[]) {
+    
+    if (argc!=2) {
+        usage_exit();
+    }
+    
     char        *infilename;
     SNDFILE	 	*infile = NULL ;
 //  FILE		*outfile = NULL ;
     SF_INFO	 	sfinfo ;
     
+    
     infilename = argv [1];
     infile = sf_open (infilename, SFM_READ, &sfinfo);
     printf("%lld \n",sfinfo.frames); //prints number of samples (frames)
     int channels = sfinfo.channels;
+    
+    
+    
     
     
     float buf [channels * BLOCK_SIZE];
@@ -28,14 +37,14 @@ int main (int argc, char*argv[]) {
             for (m = 0 ; m < channels ; m++) {
                 float curr = buf[k*channels+m];
                 printf (" % 12.10f", curr); //prints each value
-//                if(curr>maxVal) maxVal = curr;
+//                if (curr>maxVal) maxVal = curr;
 //                if (curr<minVal) minVal = curr;
                 }
             printf ("\n");
             }
     }
 //    printf("\nMax:\n%12.10f\n",maxVal);
-//    printf("\nMin\n%12.10f\n",minVal);
+//    printf("\nMin:\n%12.10f\n",minVal);
     
     
     sf_close (infile);
