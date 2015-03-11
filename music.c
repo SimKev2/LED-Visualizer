@@ -13,7 +13,7 @@ double minFreq(double array[]);
 double maxFreq(double array[]);
 double avgFreq(double array[]);
 
-void refineArray(double array[]);
+void refineArray(double array[], length);
 
 int main(void)
 {
@@ -30,7 +30,7 @@ int main(void)
 
     importFreq(rawFreq, refineFreq, songLength);
 
-    refineArray(refineFreq);
+    //refineArray(refineFreq);
 
     playDisplay(refineFreq, songLength);
 
@@ -70,12 +70,13 @@ void importFreq(double raw[], double refine[], int songLength){//FINISH_ME
 void playDisplay(double refine[], int songLength){
     int i = 0, j = 0;
     double t = clock()/((double)CLOCKS_PER_SEC);
-    for(i=0;i<songLength;i++){
+    while(i<songLength){
         if(t <= clock()/((double)CLOCKS_PER_SEC) - 1/DISPLAY_RATE){
             for(j=0;j<refine[i];j++){
                 printf("*");
             }
             printf("\n");
+            i++;
 
             t = clock()/((double)CLOCKS_PER_SEC);
         }
@@ -111,6 +112,12 @@ double avgFreq(double array[]){
     return avg;
 }
 
-void refineArray(double array[]){
-    //minFreq();
+void refineArray(double array[], length){//FINISH_ME
+    double min = minFreq(array);
+    double max = maxFreq(array);
+    double difference = max - min;
+    int i;
+    for(i=0;i<length;i++){
+        array[i]-=min;
+    }
 }
